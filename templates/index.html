@@ -1,21 +1,20 @@
 {% block content %}
 <form method="post" action="">
 
-    <p>
-        Enter a Sum:<br>
-        {{form.amount(size=30)}}<br>
-    </p>
+    <label for="amount">Enter a Sum:</label></br>
+    <input type="text" name="amount" id="amount"><br>
 
-    <p>
-        Enter a currency</br>
-        {{form.currency}}</p>
-    </p>
-
-    <p>
-        Enter a description</br>
-        {{form.description(size=30)}}</p>
-    </p>
+    <label for="currency">Chose currency</label></br>
+    <select name="currency" id="currency">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="RUB">RUB</option>
+    </select>
+    </br>
+    <label for="description">Enter a description</label></br>
+    <textarea type="text" name="description" id="description"></textarea></br>
 
     <input type="submit" value="OK">
+
 </form>
 {% endblock %}
