@@ -1,0 +1,1 @@
+SEKRET_KEY = 'SecretKey01'
