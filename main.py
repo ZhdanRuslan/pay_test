@@ -2,12 +2,10 @@ import hashlib
 import logging
 import datetime
 
-from flask import Flask, render_template, request
-from werkzeug.utils import redirect
+from flask import Flask, render_template, request, redirect
 import requests
 
-from forms.pay_forms import PayForm
-from settings import SEKRET_KEY, currency_code
+from settings import SEKRET_KEY, currency_code, ref_for_rub, ref_for_eur
 
 app = Flask(__name__)
 
@@ -21,7 +19,7 @@ def generate_sign(amount=None, currency=None, requested_json=None):
         return sign
     else:
         app.logger.info('Generate sign for other case')
-        # generate sign for another cases
+        # generate sign for another cases USD/RUB
         sorted_json_keys = sorted(requested_json.keys())
         res_str = ''
         for key in sorted_json_keys:
@@ -35,15 +33,13 @@ def generate_sign(amount=None, currency=None, requested_json=None):
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    form = PayForm()
-    currency = request.form.get('currency')
-    amount = request.form.get('amount')
-    description = request.form.get('description')
-    decimal_currency = str(currency_code.get(currency))
-
     if request.method == 'GET':
-        return render_template('index.html', form=form)
+        return render_template('index.html')
     if request.method == 'POST':
+        currency = request.form.get('currency')
+        amount = request.form.get('amount')
+        description = request.form.get('description')
+        decimal_currency = str(currency_code.get(currency))
 
         # EUR
         if currency == 'EUR':
@@ -51,7 +47,8 @@ def main():
             logging.info('Currency: {}, Amount: {}, Time: {}, Description: {}, ID: {}'.format(currency, amount,
                                                                                               datetime.datetime.now(),
                                                                                               description, None))
-            return render_template('pay_eur.html', currency=decimal_currency, amount=amount, sign=sign)
+            return render_template('pay_eur.html', currency=decimal_currency, amount=amount, sign=sign,
+                                   ref_for_eur=ref_for_eur)
         # USD
         if currency == 'USD':
 
@@ -116,7 +113,8 @@ def main():
                                                                                                       'id']))
 
                 return render_template('pay_rub.html', lang=lang, m_curorderid=m_curorderid,
-                                       m_historyid=m_historyid, m_historytm=m_historytm, referer=referer, method=method)
+                                       m_historyid=m_historyid, m_historytm=m_historytm, referer=referer, method=method,
+                                       ref_for_rub=ref_for_rub)
 
 
 if __name__ == '__main__':

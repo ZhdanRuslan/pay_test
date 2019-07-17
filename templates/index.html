@@ -1,20 +1,39 @@
+<!doctype html>
+<head>
+    <title>{% block title %}{% endblock %} Payment API </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
 {% block content %}
-<form method="post" action="">
+<div class="container">
+    <div class="row">
+        <div class="span6 center">
+            <form method="post" action="">
 
-    <label for="amount">Enter a Sum:</label></br>
-    <input type="text" name="amount" id="amount"><br>
+                <div class="form-group">
+                    <label for="amount">Enter a Sum:</label></br>
+                    <input class="form-control" type="text" name="amount" id="amount"><br>
 
-    <label for="currency">Chose currency</label></br>
-    <select name="currency" id="currency">
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-        <option value="RUB">RUB</option>
-    </select>
-    </br>
-    <label for="description">Enter a description</label></br>
-    <textarea type="text" name="description" id="description"></textarea></br>
+                    <label for="currency">Chose currency</label></br>
+                    <select class="form-control" name="currency" id="currency">
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="RUB">RUB</option>
+                    </select>
+                    </br>
 
-    <input type="submit" value="OK">
+                    <label for="description">Enter a description</label></br>
+                    <textarea class="form-control" type="text" name="description" id="description"></textarea></br>
 
-</form>
+
+                    <input type="submit" class="btn btn-primary" value="OK">
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
+</body>

@@ -1,7 +1,8 @@
-<form method={{method}} action="https://payeer.com/api/merchant/process.php">
+<form method={{method}} action={{ref_for_rub}}>
     <input type="hidden" name="lang" value={{lang}}/>
     <input type="hidden" name="m_curorderid" value={{m_curorderid}}/>
     <input type="hidden" name="m_historyid" value={{m_historyid}}/>
     <input type="hidden" name="m_historytm" value={{m_historytm}}/>
-    <input type="hidden" name="referer" value={{referer}}/><input type="submit" value="Test invoice" />
+    <input type="hidden" name="referer" value={{referer}}/>
+    <input type="submit" value="Test invoice" />
 </form>
