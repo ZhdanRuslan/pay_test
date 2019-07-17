@@ -13,12 +13,11 @@ app = Flask(__name__)
 def generate_sign(amount=None, currency=None, requested_json=None):
     # generate for pay in EUR
     if requested_json is None:
-        app.logger.info('Generate sign for base case with EUR')
         result_hash = (amount + ':' + currency + ':5:101' + SEKRET_KEY).encode()
         sign = hashlib.sha256(result_hash).hexdigest()
+        app.logger.info('Generate sign for base case with EUR')
         return sign
     else:
-        app.logger.info('Generate sign for other case')
         # generate sign for another cases USD/RUB
         sorted_json_keys = sorted(requested_json.keys())
         res_str = ''
@@ -28,6 +27,7 @@ def generate_sign(amount=None, currency=None, requested_json=None):
 
         res_str += SEKRET_KEY
         sign = hashlib.sha256(res_str[1:].encode()).hexdigest()
+        app.logger.info('Generate sign for other cases USD/RUB')
         return sign
 
 
@@ -78,6 +78,7 @@ def main():
                                                                                                       'id']))
                 return redirect(url)
 
+        # RUB
         if currency == 'RUB':
             requested_json = {
                 "amount": "{}".format(amount),
